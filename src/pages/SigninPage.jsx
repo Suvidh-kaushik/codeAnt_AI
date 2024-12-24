@@ -39,7 +39,7 @@ const SigninPage = () => {
    }
 
   return (
-    <div className='grid lg:grid-cols-2 w-full h-screen bg-whiteRight dark:bg-slate-800 relatvie'>
+    <div className='grid lg:grid-cols-2 w-full h-screen bg-whiteRight dark:bg-slate-800 relative'>
       <div className='absolute top-2 right-5 flex justify-center items-center gap-4'>
       <div>
         <button onClick={handleNavigation}>

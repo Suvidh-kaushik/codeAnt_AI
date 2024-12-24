@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import LogoSmall from "../assets/logo.png"
 import home from "../assets/home.png"
 import book from "../assets/book.png"
@@ -10,18 +10,59 @@ import signout from "../assets/sign-out.png"
 import search from "../assets/Frame 10.png"
 import refresh from "../assets/refresh.png"
 import plus from "../assets/plus.png"
+import SideLogoImg from"../assets/Subtract.png"
 import KeyDownButton from '../components/KeyDownButton'
 import RepositoryTemplate from '../components/RepositoryTemplate'
+import { useNavigate } from 'react-router-dom'
 
 const MainPage = () => {
+
+  const[dark,setdark]=useState(false);// intially no dark mode
+
+    
+  const nav=useNavigate();
+
+  const toggledark=()=>{
+   setdark(!dark);
+   if (!dark) {
+     document.documentElement.classList.add('dark'); // Enable dark mode
+   } else {
+     document.documentElement.classList.remove('dark'); // Disable dark mode
+   }
+  }
+
+  const handleNavigation=()=>{
+   nav("/");
+  }
+
   return (
-    <div className='grid grid-cols-[17%_83%] h-screen w-full bg-whiteRight'>
-      <div className='bg-whiteLeft flex flex-col justify-between items-center border border-borderBetween h-screen'>
+    <div className='grid grid-cols-[17%_83%] h-screen w-full bg-whiteRight focus:dark:bg-neutral-800'>
+       <div className='absolute top-2 right-5 flex justify-center items-center gap-4'>
+      <div>
+        <button onClick={handleNavigation}>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 dark:text-white">
+         <path stroke-linecap="round" stroke-linejoin="round" d="M21 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061A1.125 1.125 0 0 1 21 8.689v8.122ZM11.25 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061a1.125 1.125 0 0 1 1.683.977v8.122Z" />
+        </svg>
+        </button>
+      </div>
+      {!dark?<button onClick={toggledark}> 
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+      <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z" clip-rule="evenodd" />
+      </svg>
+      </button>:
+      <button onClick={toggledark}> 
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-white">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+       </svg>
+      </button>
+      }
+      </div>
+      <div className='bg-whiteLeft dark:bg-slate-800 flex flex-col justify-between items-center border border-borderBetween h-screen'>
         <div className='flex flex-col justify-center items-center mt-6 gap-2 w-full'>
           <div className='flex flex-col justify-center items-center w-full gap-2'>
             <div className='flex justify-center items-center gap-3'>
-              <img src={LogoSmall} className='w-[28px] h-[32px] mb-3' alt="Logo image"/>
-              <span className='text-textSigninColor font-satoshi font-normal text-2xl'>CodeAnt AI</span>
+              <img src={dark?SideLogoImg:LogoSmall} className='w-[28px] h-[32px] mb-3' alt="Logo image"/>
+              <span className='text-textSigninColor dark:text-whiteLeft font-satoshi font-normal text-2xl'>CodeAnt AI</span>
             </div>
             {/* <div></div>    DROP DOWN */}
             <div>
@@ -54,19 +95,19 @@ const MainPage = () => {
             </div>
          </div>
       </div>
-      <div className='bg-whiteRight flex justify-center items-center w-full h-full'>
-      <div className='bg-whiteLeft border border-borderHorizontalBetween flex flex-col items-center justify-center  w-full m-6 rounded-lg mt-10'>
+      <div className='bg-whiteRight dark:bg-slate-900 flex justify-center items-center w-full h-full'>
+      <div className='bg-whiteLeft dark:bg-slate-900 border border-borderHorizontalBetween flex flex-col items-center justify-center  w-full m-6 rounded-lg mt-10'>
        <div className='flex flex-row items-center justify-between w-full my-4'>
 
         <div className='flex flex-col justify-center items-start ml-5 gap-2'>
           <div className='flex flex-col justify-center items-start'>
-            <div className='font-inter font-semibold text-repoColor text-[20px]'>Repositories</div>
-            <div className='font-inter text-repoTailerColor font-normal text-xs leading-5'>33 total repositories</div>
+            <div className='font-inter font-semibold text-repoColor dark:text-whiteLeft text-[20px]'>Repositories</div>
+            <div className='font-inter text-repoTailerColor dark:text-whiteLeft font-normal text-xs leading-5'>33 total repositories</div>
           </div>
           <div>
             <button className='flex flex-row justify-start items-center border-2 rounded-lg border-searchButtonBorder py-1 px-6 gap-2'>
                <img src={search} className='h-[18px] w-[18px] top-[3px]'></img>
-               <div className='text-repoTailerColor font-inter font-normal text-sm leading-5'>Search Repositories</div>
+               <div className='text-repoTailerColor dark:text-whiteLeft font-inter font-normal text-sm leading-5'>Search Repositories</div>
             </button>
           </div>
         </div>
